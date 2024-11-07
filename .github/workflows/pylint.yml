@@ -1,0 +1,23 @@
+Имя: Пилинт
+
+на: [толкать]
+
+Вакансии:
+  построить:
+    наезд: Ubuntu-последний
+    стратегия:
+      матрица:
+        версия Python: ["3.8", "3.9", "3.10"]
+    шAGI:
+    - использовать: действие/checkout@v4
+    - Имя: Настройка Python ${{ матрица.python-версия }}
+      использовать: действия/настройка-python@v3
+      с:
+        версия Python: ${{ матрица.python-версия }}
+    - Имя: Установить в зависимости
+      Бегать: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    - name: Analysing the code with pylint
+      run: |
+        pylint $(git ls-files '*.py')
